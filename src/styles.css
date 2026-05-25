@@ -1,0 +1,18 @@
+/* src/styles.css */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #EAE0CF; /* Crema institucional de fondo */
+  color: #111844;            /* Azul Noche para los textos generales */
+  margin: 0;
+  padding: 0;
+}
+
+/* Título principal que engloba todo el sistema */
+h1 {
+  text-align: center;
+  color: #111844;            /* Azul Noche */
+  font-size: 34px;
+  font-weight: 800;
+  margin-top: 30px;
+  margin-bottom: 5px;
+}

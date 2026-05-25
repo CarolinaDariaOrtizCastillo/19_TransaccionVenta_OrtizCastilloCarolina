@@ -1,0 +1,27 @@
+<div class="container" style="margin-top: 30px;">
+  <h2>Listado de Ventas Registradas</h2>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID Venta</th>
+        <th>Cliente</th>
+        <th>Fecha Emision</th>
+        <th>Cant. Productos</th>
+        <th>Monto Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of ventas">
+        <td># {{ v.id }}</td>
+        <td>{{ v.clienteNombre || 'Cliente ID: ' + v.clienteId }}</td>
+        <td>{{ v.fecha | date:'dd/MM/yyyy' }}</td>
+        <td>{{ obtenerCantidadProductos(v) }} items</td>
+        <td><strong class="text-success">${{ v.total | number:'1.2-2' }}</strong></td>
+      </tr>
+      <tr *ngIf="ventas.length === 0">
+        <td colspan="5" class="text-center">No hay transacciones registradas todavia.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

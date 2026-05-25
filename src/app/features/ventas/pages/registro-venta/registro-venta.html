@@ -1,0 +1,66 @@
+<div class="container">
+  <h2>Registro de Venta</h2>
+
+  <form [formGroup]="ventaForm" (ngSubmit)="guardarVenta()">
+    <div class="form-group">
+      <label>Seleccionar Cliente (*):</label>
+      <select formControlName="clienteId" class="form-control">
+        <option value="">-- Seleccione un cliente --</option>
+        <option *ngFor="let c of clientes" [value]="c.id">
+          {{ c.nombre }} (RUC: {{ c.ruc }})
+        </option>
+      </select>
+    </div>
+
+    <hr />
+
+    <h3>Tabla Dinamica de Productos</h3>
+    <button type="button" class="btn btn-primary" (click)="agregarProducto()">+ Agregar Producto</button>
+
+    <table class="table" style="margin-top: 15px;">
+      <thead>
+        <tr>
+          <th>Producto (*)</th>
+          <th>Cantidad (*)</th>
+          <th>Precio Unitario</th>
+          <th>Stock Disp.</th>
+          <th>Subtotal</th>
+          <th>Accion</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="detalles">
+        <tr *ngFor="let ctrl of detalles.controls; let i = index" [formGroupName]="i">
+          <td>
+            <select formControlName="productoId" class="form-control" (change)="onProductoChange(i)">
+              <option value="">-- Seleccione --</option>
+              <option *ngFor="let p of productos" [value]="p.id">{{ p.nombre }}</option>
+            </select>
+          </td>
+          <td>
+            <input type="number" formControlName="cantidad" class="form-control" (input)="calcularSubtotal(i)" />
+          </td>
+          <td>
+            <input type="text" formControlName="precio" class="form-control" />
+          </td>
+          <td>
+            <input type="text" formControlName="stock" class="form-control text-muted" />
+          </td>
+          <td>
+            <strong>${{ ctrl.get('subtotal')?.value | number:'1.2-2' }}</strong>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="eliminarProducto(i)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-right">
+      <h4>Total General: <span class="text-success">${{ totalGeneral | number:'1.2-2' }}</span></h4>
+    </div>
+
+    <button type="submit" class="btn btn-success btn-block" style="margin-top: 20px;">
+      Registrar Transaccion de Venta
+    </button>
+  </form>
+</div>
